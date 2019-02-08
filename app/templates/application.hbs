@@ -1,5 +1,23 @@
-{{!-- The following component displays Ember's default welcome message. --}}
-{{welcome-page}}
-{{!-- Feel free to remove this! --}}
-
 {{outlet}}
+<input type="search" placeholder="Search..." value={{filterText}} oninput={{action (mut filterText) value="target.value"}}>
+<YetiTable @data={{rows}} @filter={{filterText}} class="table-striped" as |table|>
+  <table.header class={{filterText}} as |header|>
+    <header.column @prop="id">Id</header.column>
+    <header.column @prop="name">Name</header.column>
+    <header.column @prop="state">State</header.column>
+    <header.column>Actions</header.column>
+  </table.header>
+  <table.body as |body game|>
+    <body.row as |row|>
+      <row.cell>{{game.id}}</row.cell>
+      <row.cell>{{game.name}}</row.cell>
+      <row.cell><span class="badge badge-secondary">{{game.state}}</span></row.cell>
+      <row.cell>
+        <div class="btn-group">
+          <button class="btn btn-sm btn-secondary">View</button>
+          <button class="btn btn-sm btn-secondary">Edit</button>
+        </div>
+      </row.cell>
+    </body.row>
+  </table.body>
+</YetiTable>
